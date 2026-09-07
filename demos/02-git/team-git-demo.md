@@ -1,15 +1,15 @@
-# Collaboration with Git/GitHub
+# Collaboration with Git / GitHub
 
-This demo is about **decentralized collaboration**. Each person works on their own copy of a shared project, then Git combines those copies. When two people change the same file, Git cannot guess the intended result, so it cannot merge the versions automatically; we call this a **merge conflict**. Resolving conflicts is the central skill: you read both versions, keep the work that belongs together, and record the combined result.
+This demo is about **decentralized collaboration**. Each person works on their own copy of a shared project, then Git combines those copies. When two people change the same file, Git cannot guess the intended result, so it cannot merge automatically. That is a **merge conflict**. We will show you how to resolve one.
 
-We will first demonstrate sharing work that does *not* collide (unique filenames, automatic merge), then deliberately create a collision and resolve it as a team.
+We will first share work that does *not* collide (unique filenames, automatic merge), then deliberately create a collision and resolve it as a team.
 
-**At your table, split into teams of two or three.** Select one person to set up a new repository on GitHub. Work through these steps:
+Instructor demo repo: [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo)
 
 ## Step 1: Repository Setup
 
-- One person (the "creator") in your group sets up a new repository on GitHub. Initialize the repository with a README so GitHub creates a `main` branch.
-- The creator adds all group members as collaborators to the new repository on GitHub:
+- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo).
+- The creator adds all group members as collaborators:
   - Go to **Settings** → **Collaborators** (under **Access** in the left sidebar) → **Add people**.
   - Search for each teammate by GitHub username and click **Add [username] to [repository]**. Each invited teammate must accept the invitation (email, GitHub notification, or the banner on the repository page) before they can clone and push.
 
@@ -22,17 +22,17 @@ We will first demonstrate sharing work that does *not* collide (unique filenames
 ```bash
 mkdir -p ~/ds2022-fall-26
 cd ~/ds2022-fall-26
-git clone https://github.com/CREATOR_USERNAME/REPO_NAME.git
-cd REPO_NAME
+git clone https://github.com/ksiller/ds2022-git-demo.git
+cd ds2022-git-demo
 ls -la
 ```
 
-Replace `CREATOR_USERNAME` and `REPO_NAME` with the actual GitHub username and repository name. `ls -la` should show the README plus the hidden `.git` directory.
+`ls -la` should show the README plus the hidden `.git` directory.
 
 ## Step 3: Open the Cloned Repository as a Project in Cursor
 
 - In Cursor, switch to the **IDE Window** if you are not already there (**File → Open IDE**, or confirm the File menu shows **Switch to Agent Windows**).
-- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `REPO_NAME` (`REPO_NAME` is a placeholder for your cloned repository).
+- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-git-demo`.
 - Go to **View → Explorer**. This will open the folder/file explorer in the Cursor sidebar.
 
 ## Step 4: Create Unique Files
@@ -62,14 +62,14 @@ If `git push` is rejected because a teammate pushed first, you may see an error 
 
 ```text
 ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/CREATOR_USERNAME/REPO_NAME.git'
+error: failed to push some refs to 'https://github.com/ksiller/ds2022-git-demo.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 ```
 
-Integrate their work and push again:
+Pull from `origin` (the GitHub copy) to integrate their work, then push again:
 
 ```bash
 git pull origin main --merge
@@ -109,11 +109,11 @@ git push origin main
 
 ## Step 9: Resolve Merge Conflicts
 
-**The early bird gets the worm:** If you are the first person to push the `collision.txt` file, you're in luck—the push should go through without a hitch. The others will see the same rejected-push error as in Step 5:
+**The early bird gets the worm:** If you are the first person to push the `collision.txt` file, you're in luck: the push should go through without a hitch. The others will see the same rejected-push error as in Step 5:
 
 ```text
 ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/CREATOR_USERNAME/REPO_NAME.git'
+error: failed to push some refs to 'https://github.com/ksiller/ds2022-git-demo.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
@@ -179,4 +179,4 @@ git push origin main
 
 7. The next person in the group should repeat steps 1-6 until everyone has successfully pushed their entry to the consolidated `collision.txt` file on GitHub.
 
-**Congratulations, you did it!**
+**That's it.** All changes are now merged, and everyone has access to the merged results.
