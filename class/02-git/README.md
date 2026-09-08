@@ -1,6 +1,6 @@
 # Version Control & Collaboration with Git & GitHub
 
-This module introduces **Git** (history on your laptop) and **GitHub** (a shared copy of that history). During class we walk through live demos; those commands are in [demos/02-git](../../demos/02-git/README.md) for reference.
+This module introduces **Git** (the version control tool) and **GitHub** (a webportal for shareable repositories stored in the cloud). During class we walk through live demos; those commands are in [demos/02-git](../../demos/02-git/README.md) for reference.
 
 The notes are in three parts:
 
