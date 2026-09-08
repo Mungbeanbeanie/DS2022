@@ -2,21 +2,29 @@
 
 Git keeps **history on your laptop**. GitHub is a **shared copy** of that history. Today's loop is: clone → change → add → commit → push / pull. (The next demo is collaboration and conflicts.)
 
-Instructor demo repo: [https://github.com/ksiller/ds2022-demo](https://github.com/ksiller/ds2022-demo)
+Instructor demo repo: [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo)
 
 Work in `~/ds2022-fall-26`. Do **not** clone inside another Git repository.
 
 If Git asks for a password, paste your **Personal Access Token**, not your GitHub password. The first `git commit` on a new laptop may also ask you to set your name and email (`git config --global user.name` and `user.email`).
 
+## 0. GitHub
+
+- Login to GitHub [https://github.com](https://github.com)
+- Create a personal access token (classic), see [GitHub setup instructions](../../setup/git.md)
+- Create a new repository, in this case `ds2022-git-demo`. We make it *public* and leave all default settings.
+
+
+
 ## 1. Clone
 
-Copy the repo from GitHub onto your machine:
+Open a terminal, copy the repo from GitHub onto your machine:
 
 ```bash
 mkdir -p ~/ds2022-fall-26
 cd ~/ds2022-fall-26
-git clone https://github.com/ksiller/ds2022-demo.git
-cd ds2022-demo
+git clone https://github.com/ksiller/ds2022-git-demo.git
+cd ds2022-git-demo
 ls -la
 ```
 
@@ -66,7 +74,7 @@ git rm --cached scratch.txt
 git status
 ```
 
-`hello.txt` is still staged. `scratch.txt` is untracked again.
+`hello.txt` is still staged. `scratch.txt` is untracked again but it still exists on your computer. **Be careful:** If you run `git rm` without the `--cached` option, it will delete your file!
 
 ```bash
 git commit -m "Add hello.txt"
@@ -83,11 +91,11 @@ A **commit** is a saved snapshot. `scratch.txt` is still in your folder; it is j
 git push origin main
 ```
 
-Then refresh [https://github.com/ksiller/ds2022-demo](https://github.com/ksiller/ds2022-demo) and confirm the new file is there.
+Then refresh [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo) and confirm the new file is there.
 
 ## 7. Pull (everyone)
 
-When GitHub has commits you do not have yet, update your laptop:
+When the repository on GitHub has commits (updates) you do not have yet, update your local copy:
 
 ```bash
 git pull origin main
@@ -97,10 +105,10 @@ ls
 
 You should see whatever the instructor just pushed.
 
-## Same loop in Cursor
+## Same steps in Cursor
 
 - Switch to the **IDE Window** if needed (**File → Open IDE**).
-- **File → Open Folder...** and open `ds2022-fall-26/ds2022-demo`.
+- **File → Open Folder...** and open `ds2022-fall-26/ds2022-git-demo`.
 - **View → Explorer** to see files. `scratch.txt` is on disk; Git is not tracking it.
 - Open **Source Control** (branch icon in the left activity bar). This is `git status` as a list: changes to stage, a box for the commit message, and a commit button (same as `git add` then `git commit`).
 

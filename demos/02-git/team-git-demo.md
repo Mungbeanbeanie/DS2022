@@ -4,11 +4,11 @@ This demo is about **decentralized collaboration**. Each person works on their o
 
 We will first share work that does *not* collide (unique filenames, automatic merge), then deliberately create a collision and resolve it as a team.
 
-Instructor demo repo: [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo)
+Instructor demo repo: [https://github.com/ksiller/ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo)
 
 ## Step 1: Repository Setup
 
-- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo).
+- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo) but you can choose your own repo name if you like.
 - The creator adds all group members as collaborators:
   - Go to **Settings** → **Collaborators** (under **Access** in the left sidebar) → **Add people**.
   - Search for each teammate by GitHub username and click **Add [username] to [repository]**. Each invited teammate must accept the invitation (email, GitHub notification, or the banner on the repository page) before they can clone and push.
@@ -22,8 +22,8 @@ Instructor demo repo: [https://github.com/ksiller/ds2022-git-demo](https://githu
 ```bash
 mkdir -p ~/ds2022-fall-26
 cd ~/ds2022-fall-26
-git clone https://github.com/ksiller/ds2022-git-demo.git
-cd ds2022-git-demo
+git clone https://github.com/ksiller/ds2022-team-git-demo.git
+cd ds2022-team-git-demo
 ls -la
 ```
 
@@ -32,7 +32,7 @@ ls -la
 ## Step 3: Open the Cloned Repository as a Project in Cursor
 
 - In Cursor, switch to the **IDE Window** if you are not already there (**File → Open IDE**, or confirm the File menu shows **Switch to Agent Windows**).
-- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-git-demo`.
+- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-team-git-demo`.
 - Go to **View → Explorer**. This will open the folder/file explorer in the Cursor sidebar.
 
 ## Step 4: Create Unique Files
@@ -62,7 +62,7 @@ If `git push` is rejected because a teammate pushed first, you may see an error 
 
 ```text
 ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/ksiller/ds2022-git-demo.git'
+error: failed to push some refs to 'https://github.com/ksiller/ds2022-team-git-demo.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
@@ -113,7 +113,7 @@ git push origin main
 
 ```text
 ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/ksiller/ds2022-git-demo.git'
+error: failed to push some refs to 'https://github.com/ksiller/ds2022-team-git-demo.git'
 hint: Updates were rejected because the remote contains work that you do
 hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
