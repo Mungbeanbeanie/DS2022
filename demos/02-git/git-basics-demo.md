@@ -1,6 +1,6 @@
 # Getting Started with Git / GitHub
 
-Git keeps **history on your laptop**. GitHub is a **shared copy** of that history. Today's loop is: clone → change → add → commit → push / pull. (The next demo is collaboration and conflicts.)
+**Git** is the version control tool, **GitHub** is a webportal for shareable Git repositories stored in the cloud. This demo goes over the basic git steps: clone → change → add → commit → push / pull. (The next demo is collaboration and conflicts.)
 
 Instructor demo repo: [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo)
 
@@ -89,6 +89,8 @@ A **commit** is a saved snapshot. `scratch.txt` is still in your folder; it is j
 git log
 ```
 
+
+
 ## 7. Push (instructor)
 
 `git push` publishes commits to GitHub. You do not have write access to this demo repo, so **watch the instructor** run:
@@ -99,7 +101,6 @@ git push origin main
 
 Then refresh [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo) and confirm the new file is there.
 
-
 ## 8. Add another file
 
 ```bash
@@ -109,11 +110,15 @@ git commit -m "new test"
 git log
 ```
 
+
+
 ## 9. Push again
 
 ```bash
 git push origin main
 ```
+
+
 
 ## 10. Pull (everyone)
 
