@@ -83,7 +83,13 @@ git status
 
 A **commit** is a saved snapshot. `scratch.txt` is still in your folder; it is just not in Git's history.
 
-## 6. Push (instructor)
+## 6. Check logs
+
+```bash
+git log
+```
+
+## 7. Push (instructor)
 
 `git push` publishes commits to GitHub. You do not have write access to this demo repo, so **watch the instructor** run:
 
@@ -93,7 +99,23 @@ git push origin main
 
 Then refresh [https://github.com/ksiller/ds2022-git-demo](https://github.com/ksiller/ds2022-git-demo) and confirm the new file is there.
 
-## 7. Pull (everyone)
+
+## 8. Add another file
+
+```bash
+echo "# Testing" > test.md
+git add test.md
+git commit -m "new test"
+git log
+```
+
+## 9. Push again
+
+```bash
+git push origin main
+```
+
+## 10. Pull (everyone)
 
 When the repository on GitHub has commits (updates) you do not have yet, update your local copy:
 
