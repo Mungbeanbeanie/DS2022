@@ -1,6 +1,6 @@
 # Version Control & Collaboration with Git & GitHub
 
-This module introduces **Git** (the version control tool) and **GitHub** (a webportal for shareable repositories stored in the cloud). During class we walk through live demos; those commands are in [demos/02-git](../../demos/02-git/README.md) for reference.
+This module introduces **Git** (the version control tool) and **GitHub** (a website that stores repositories in the cloud so you can share them). During class we walk through live demos; those commands are in [demos/02-git](../../demos/02-git/README.md) for reference.
 
 The notes are in three parts:
 
@@ -46,7 +46,7 @@ git remote -v
 git status
 ```
 
-`origin` is a nickname for the GitHub URL you cloned from. If you initialized with a README, you should be on `main` and "working tree clean." If you skipped the README, Git will report that you have no commits yet.
+`origin` is a nickname for the GitHub URL you cloned from. If you created the repository with a README, you should be on `main` and "working tree clean" (nothing has changed since the last snapshot). If you skipped the README, Git will report that you have no commits yet.
 
 ### Step 3: Add a File, Commit, and Push
 
@@ -96,15 +96,15 @@ Refresh your repository on GitHub. The new commit is not there yet.
 git push -u origin main
 ```
 
-`-u` sets the upstream the first time you push `main`. Later pushes can be `git push origin main`. Refresh the GitHub page. You should see `hello.py` and `README.md`. A **commit** is a snapshot on your laptop; **push** publishes that snapshot to GitHub.
+`-u` is only needed the first time you push `main`: it tells Git that your local `main` belongs with the `main` on GitHub, so later you can type just `git push`. Either way, `git push origin main` always works. Refresh the GitHub page. You should see `hello.py` and `README.md`. A **commit** is a snapshot on your laptop; **push** publishes that snapshot to GitHub.
 
 ## Part II: Collaboration on a Shared Repository
 
 Part I was a repository you own. Here the owner **adds everyone as collaborators**, so you all clone the *same* GitHub repository and push to the same `origin`. There is no fork and no pull request: you write directly to the shared `main` branch. Forks and pull requests are [Part III](#part-iii-contributing-to-someone-elses-repository), for when you do *not* have write access.
 
-That is **decentralized collaboration** on one project. Each person works on their own copy, then Git combines those copies. When two people change the same file, Git cannot guess the intended result, so it cannot merge the versions automatically; we call this a **merge conflict**. Resolving conflicts is the central skill: you read both versions, keep the work that belongs together, and record the combined result.
+Everyone works on their own copy of the project, and Git combines those copies. When two people change the same file, Git cannot guess which version you meant to keep, so it stops and asks you. That is a **merge conflict**, and resolving one is the main skill in this part: you read both versions, keep the work that belongs together, and save the combined result.
 
-We will first demonstrate sharing work that does *not* collide (unique filenames, automatic merge), then deliberately create a collision and resolve it as a team.
+We will start with changes that cannot collide (each person adds a file with a different name, so Git merges them for you), then create a collision on purpose and fix it as a team.
 
 **At your table, split into teams of two or three.** Select one person to set up a new repository on GitHub. Work through these steps:
 
@@ -118,7 +118,7 @@ We will first demonstrate sharing work that does *not* collide (unique filenames
 ### Step 2: Clone the Repository
 
 - Open a terminal window.
-- Using the command line, **all** group members clone the new repository to their own environment. Make sure you are **not** inside an existing Git repository (you don't want nested Git repositories).
+- Using the command line, **all** group members clone the new repository onto their own laptop. Make sure you are **not** inside an existing Git repository (you don't want one Git repository inside another).
 - Change to `~/ds2022-fall-26` first (we created that directory last week; `mkdir -p` is safe to re-run if it is missing):
 
 ```bash
@@ -171,20 +171,20 @@ hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 ```
 
-Integrate their work and push again:
+Pull their work into your copy, then push again:
 
 ```bash
 git pull origin main --merge
 git push origin main
 ```
 
-(The `--merge` flag is explicit and avoids warnings in newer Git versions.) Because the filenames are unique, Git can merge automatically (no conflict to resolve).
+(`--merge` tells Git to combine the two versions of the history. Newer versions of Git print a warning if you leave it out.) Because everyone picked a different filename, Git can combine the work on its own, so there is no conflict to resolve.
 
 Repeat until everyone has pushed their file.
 
 ### Step 6: Verify on GitHub
 
-Everyone: check the presence of the new files on GitHub by visiting the repository page.
+Everyone: visit the repository page on GitHub and check that all the new files are there.
 
 ### Step 7: Pull Latest Changes
 
@@ -198,7 +198,7 @@ git pull origin main --merge
 
 ### Step 8: Create Collision File
 
-When collaborating, team members may be working in parallel on local copies of the *same* file. This leads to divergence, and file-version conflicts need to be resolved. Let's simulate that scenario.
+When you collaborate, two people often edit their own copy of the *same* file at the same time. Their copies then disagree, and somebody has to decide what the file should look like. Let's create that situation on purpose.
 
 Everyone: create a new file `collision.txt` in your local repository. The file should contain a single line with your first name and favorite animal. Add, commit, and push it to the remote repository on GitHub:
 
@@ -228,15 +228,15 @@ This time the rejection is only the start. After you pull, Git will also report 
 
 Starting with the group member next to the first person who successfully pushed, go clockwise and perform the following steps *one person at a time*:
 
-1. Pull with merge to reconcile the differences:
+1. Pull your teammate's version so Git can try to combine it with yours:
 
 ```bash
 git pull origin main --merge
 ```
 
-(The `--merge` flag is explicit and avoids warnings in newer Git versions.)
+(`--merge` tells Git to combine the two versions of the history. Newer versions of Git print a warning if you leave it out.)
 
-Git will start a merge and pause because of conflicts. It will not finish the merge commit until you resolve them.
+Git starts the merge and then pauses, because it found a conflict. The merge stays unfinished until you fix the file yourself.
 
 2. Cursor will highlight the conflicting lines in `collision.txt`. Git writes both versions into the file with conflict markers. If Alice pushed first (`Alice, cat`) and Bob then pulled, Bob's file looks like this:
 
@@ -251,7 +251,7 @@ Alice, cat
 - The block between `<<<<<<< HEAD` and `=======` is **your local version** (what you committed before the pull). Cursor labels this **Current Change**.
 - The block between `=======` and `>>>>>>> origin/main` is the **remote version** (what you just pulled from GitHub). Cursor labels this **Incoming Change**.
 
-3. **Resolve the conflict:** You want to **append** (not replace) the content so that everyone's entry is included. Delete the marker lines (`<<<<<<<`, `=======`, `>>>>>>>`); they are only annotations. The file should contain all group members' entries, one per line:
+3. **Resolve the conflict:** Keep both entries instead of picking one, so nobody's line is lost. Delete the three marker lines (`<<<<<<<`, `=======`, `>>>>>>>`); Git added them to show you the two versions, and they are not part of your content. The file should end up with every group member's entry, one per line:
 
 ```text
 Alice, cat
@@ -279,21 +279,21 @@ This creates the merge commit.
 git push origin main
 ```
 
-7. The next person in the group should repeat steps 1-6 until everyone has successfully pushed their entry to the consolidated `collision.txt` file on GitHub.
+7. The next person in the group repeats steps 1-6. Continue until everyone has pushed their entry and the `collision.txt` file on GitHub holds all of them.
 
 **Congratulations, you did it!**
 
 
 ## Part III: Contributing to Someone Else's Repository
 
-Part I was a repository you own. [Part II](#part-ii-collaboration-on-a-shared-repository) was a shared repository where the owner added you as a collaborator. To change a repository you do *not* own, a plain `git clone` is not enough: clone does not grant write access, so `git push` to their GitHub copy will fail.
+Part I was a repository you own. [Part II](#part-ii-collaboration-on-a-shared-repository) was a shared repository where the owner added you as a collaborator. To change a repository you do *not* own, cloning is not enough: anyone can clone a public repository, but that does not give you permission to push to it, so `git push` will be refused.
 
 There are two different ways to contribute:
 
 - **Shared repository** ([Part II](#part-ii-collaboration-on-a-shared-repository)): the owner adds you as a collaborator, and everyone pushes to the same `origin`. You already practiced that, including merge conflicts.
 - **Fork and pull request** (this part): you copy the repo under your account, push there, and ask the owner to take your change. You are not a collaborator.
 
-A **fork** is a copy of someone else's GitHub repository under *your* account. You can push to the fork. GitHub's notes: [Fork a repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+A **fork** is a copy of someone else's GitHub repository under *your* account. Because you own that copy, you are allowed to push to it. GitHub's documentation: [Fork a repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
 
 ### Fork a classmate's repository
 
@@ -307,7 +307,7 @@ git clone https://github.com/YOUR_USERNAME/FORK_NAME.git
 cd FORK_NAME
 ```
 
-Replace `FORK_NAME` with the name GitHub showed after you forked.
+Replace `FORK_NAME` with the name GitHub showed *after you forked*.
 
 4. Add a file, commit, and push. This should succeed, because `origin` is *your* fork:
 
@@ -328,9 +328,47 @@ git push origin main
 
 ## Advanced Topics
 
+### Rolling back
+
+A **commit** is a snapshot. `git log` lists those snapshots, newest first. Each line starts with a **commit hash**, a unique ID Git assigned to that snapshot (you only need the first 7 characters):
+
+```bash
+cd ~/ds2022-fall-26/ds2022-git-practice
+git log --oneline
+```
+
+The output looks something like this:
+
+```text
+9f2c1ab (HEAD -> main, origin/main) Add hello.py and README.md
+3d7e4c0 Initial commit
+```
+
+The newest commit is on top. Here `9f2c1ab` is the snapshot you pushed in Part I, and `3d7e4c0` is the commit GitHub created with your README (if you skipped the README, you may only have one commit). Your hashes will be different from these, because Git calculates them from the contents of each commit.
+
+The `(HEAD -> main, origin/main)` part tells you where things stand: your local `main` branch is at that commit, and so is GitHub's copy of `main` (origin/main).
+
+To look at an earlier snapshot **on your laptop only**, check it out by hash. Replace `HASH` with a value from your own `git log` output:
+
+```bash
+git checkout HASH
+ls
+```
+
+The files in your folder now match that older commit. Git also prints a warning about a **detached HEAD**. That means your working copy points at one specific commit instead of at the name `main`. Your newer commits are all still there, and nothing on GitHub changed. **A commit you make in this state would not belong to any branch, so look around but do not commit.**
+
+Go back to the newest commit on `main`:
+
+```bash
+git switch main
+ls
+```
+
+`git checkout` only changes which snapshot you are looking at; it never deletes commits. If you want to edit files and keep those edits, do it on a branch instead (next section).
+
 ### Branches
 
-So far you have been working on one line of history called `main`. A **branch** is just a named copy of that history. You can create another branch, edit files there, and switch back to `main` without losing anything. That is how people add a new feature or work on bug fixes while leaving `main` alone.
+So far you have been working on one line of history called `main`. A **branch** is just a named copy of that line of history. You can create another branch, edit files there, and switch back to `main` without losing anything. That is how you can add a new feature or work on bug fixes while leaving `main` alone.
 
 A new GitHub repository starts with a single branch. GitHub names it `main` by default. That first branch is the **default branch**: it is what you see on the GitHub website, and it is the branch Git puts you on when you clone. New pull requests usually merge into `main` unless you pick a different target.
 
@@ -338,27 +376,29 @@ A new GitHub repository starts with a single branch. GitHub names it `main` by d
 
 ```bash
 cd ~/ds2022-fall-26/ds2022-git-practice
-git switch -c experiment
+git switch -c development
 git branch -a
 ```
 
+The output of `git branch -a` lists every branch in the repository. The `*` marks the branch you are on right now.
+
 ```bash
-echo "only on this branch" > experiment.txt
-git add experiment.txt
-git commit -m "Add experiment.txt"
+echo "only on this branch" > new_feature.txt
+git add new_feature.txt
+git commit -m "Add new_feature.txt"
 ```
 
 ```bash
 git switch main
 git branch -a
 ls
-git switch experiment
+git switch development
 ls
 ```
 
-`experiment.txt` appears only on `experiment`. `git branch` lists local branches; `*` marks the one you are on. `git switch -c NAME` creates a branch and switches to it.
+`new_feature.txt` appears only on `development`. `git switch -c NAME` creates a new branch and moves you to it; `git switch NAME` moves you to a branch that already exists.
 
-Optional: publish the branch with `git push -u origin experiment`. On GitHub you can open a pull request from `experiment` into `main` (same idea as Part III, but both sides are your repo). This will merge the content of the `experiment` into the `main` branch.
+Optional: publish the branch with `git push -u origin development`. On GitHub you can open a pull request from `development` into `main` (same idea as Part III, but both sides are your repo). This will merge the content of `development` into the `main` branch.
 
 ## Resources
 
