@@ -5,8 +5,8 @@ This module introduces **Git** (the version control tool) and **GitHub** (a webp
 The notes are in three parts:
 
 1. [Part I](#part-i-your-own-repository): a repository you own (clone, add, commit, push).
-2. [Part II](#part-ii-contributing-to-someone-elses-repository): contribute to someone else's repository *without* write access (fork and pull request). That is the usual open-source workflow.
-3. [Part III](#part-iii-collaboration-on-a-shared-repository): contribute as a **collaborator** on one shared repository (push, pull, and merge conflicts).
+2. [Part II](#part-ii-collaboration-on-a-shared-repository): contribute as a **collaborator** on one shared repository (push, pull, and merge conflicts).
+3. [Part III](#part-iii-contributing-to-someone-elses-repository): contribute to someone else's repository *without* write access (fork and pull request). That is the usual open-source workflow.
 
 Work through the sections below on your own machine. When you finish, complete **Lab 02** in Canvas (link and due date are posted there).
 
@@ -98,51 +98,9 @@ git push -u origin main
 
 `-u` sets the upstream the first time you push `main`. Later pushes can be `git push origin main`. Refresh the GitHub page. You should see `hello.py` and `README.md`. A **commit** is a snapshot on your laptop; **push** publishes that snapshot to GitHub.
 
-## Part II: Contributing to Someone Else's Repository
+## Part II: Collaboration on a Shared Repository
 
-Part I was a repository you own. To change a repository you do *not* own, a plain `git clone` is not enough: clone does not grant write access, so `git push` to their GitHub copy will fail.
-
-There are two different ways to contribute:
-
-- **Fork and pull request** (this part): you copy the repo under your account, push there, and ask the owner to take your change. You are not a collaborator.
-- **Shared repository** ([Part III](#part-iii-collaboration-on-a-shared-repository)): the owner adds you as a collaborator, and everyone pushes to the same `origin`. That is how teams often work, and it is where merge conflicts show up.
-
-A **fork** is a copy of someone else's GitHub repository under *your* account. You can push to the fork. GitHub's notes: [Fork a repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
-
-### Fork a classmate's repository
-
-1. Ask a classmate for the GitHub URL of the repository they created in Step 1 (for example `https://github.com/CLASSMATE_USERNAME/ds2022-git-practice`). Open it in the browser.
-2. Click **Fork**, then **Create fork**. If GitHub says you already have a repository with that name, give the fork a different name (for example `ds2022-git-practice-fork`).
-3. Clone **your fork**, not the original. Work in `~/ds2022-fall-26` (do not clone inside another Git repository):
-
-```bash
-cd ~/ds2022-fall-26
-git clone https://github.com/YOUR_USERNAME/FORK_NAME.git
-cd FORK_NAME
-```
-
-Replace `FORK_NAME` with the name GitHub showed after you forked.
-
-4. Add a file, commit, and push. This should succeed, because `origin` is *your* fork:
-
-```bash
-echo "Hello from a fork" > fork-hello.txt
-git add fork-hello.txt
-git commit -m "Add fork-hello.txt"
-git push origin main
-```
-
-5. Refresh **your** fork on GitHub. You should see `fork-hello.txt`. Your classmate's original repository is unchanged.
-
-### Open a pull request
-
-6. A **pull request** asks the original owner to take your change. On your fork's GitHub page, click **Contribute** → **Open pull request** (or the **Compare & pull request** banner if GitHub shows one). Confirm that the **base** repository is your classmate's original and the **head** is your fork, then click **Create pull request**.
-
-7. Your classmate opens **Pull requests** on their repository, reviews `fork-hello.txt`, and clicks **Merge pull request**. After they refresh, the original repo has your file. That is the full loop: fork → change → push → pull request → merge.
-
-## Part III: Collaboration on a Shared Repository
-
-This exercise is a different collaboration model from Part II. Here the owner **adds everyone as collaborators**, so you all clone the *same* GitHub repository and push to the same `origin`. There is no fork and no pull request: you write directly to the shared `main` branch.
+Part I was a repository you own. Here the owner **adds everyone as collaborators**, so you all clone the *same* GitHub repository and push to the same `origin`. There is no fork and no pull request: you write directly to the shared `main` branch. Forks and pull requests are [Part III](#part-iii-contributing-to-someone-elses-repository), for when you do *not* have write access.
 
 That is **decentralized collaboration** on one project. Each person works on their own copy, then Git combines those copies. When two people change the same file, Git cannot guess the intended result, so it cannot merge the versions automatically; we call this a **merge conflict**. Resolving conflicts is the central skill: you read both versions, keep the work that belongs together, and record the combined result.
 
@@ -326,6 +284,48 @@ git push origin main
 **Congratulations, you did it!**
 
 
+## Part III: Contributing to Someone Else's Repository
+
+Part I was a repository you own. [Part II](#part-ii-collaboration-on-a-shared-repository) was a shared repository where the owner added you as a collaborator. To change a repository you do *not* own, a plain `git clone` is not enough: clone does not grant write access, so `git push` to their GitHub copy will fail.
+
+There are two different ways to contribute:
+
+- **Shared repository** ([Part II](#part-ii-collaboration-on-a-shared-repository)): the owner adds you as a collaborator, and everyone pushes to the same `origin`. You already practiced that, including merge conflicts.
+- **Fork and pull request** (this part): you copy the repo under your account, push there, and ask the owner to take your change. You are not a collaborator.
+
+A **fork** is a copy of someone else's GitHub repository under *your* account. You can push to the fork. GitHub's notes: [Fork a repository](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo).
+
+### Fork a classmate's repository
+
+1. Ask a classmate for the GitHub URL of the repository they created in Part I (for example `https://github.com/CLASSMATE_USERNAME/ds2022-git-practice`). Open it in the browser.
+2. Click **Fork**, then **Create fork**. If GitHub says you already have a repository with that name, give the fork a different name (for example `ds2022-git-practice-fork`).
+3. Clone **your fork**, not the original. Work in `~/ds2022-fall-26` (do not clone inside another Git repository):
+
+```bash
+cd ~/ds2022-fall-26
+git clone https://github.com/YOUR_USERNAME/FORK_NAME.git
+cd FORK_NAME
+```
+
+Replace `FORK_NAME` with the name GitHub showed after you forked.
+
+4. Add a file, commit, and push. This should succeed, because `origin` is *your* fork:
+
+```bash
+echo "Hello from a fork" > fork-hello.txt
+git add fork-hello.txt
+git commit -m "Add fork-hello.txt"
+git push origin main
+```
+
+5. Refresh **your** fork on GitHub. You should see `fork-hello.txt`. Your classmate's original repository is unchanged.
+
+### Open a pull request
+
+6. A **pull request** asks the original owner to take your change. On your fork's GitHub page, click **Contribute** → **Open pull request** (or the **Compare & pull request** banner if GitHub shows one). Confirm that the **base** repository is your classmate's original and the **head** is your fork, then click **Create pull request**.
+
+7. Your classmate opens **Pull requests** on their repository, reviews `fork-hello.txt`, and clicks **Merge pull request**. After they refresh, the original repo has your file. That is the full loop: fork → change → push → pull request → merge.
+
 ## Advanced Topics
 
 ### Branches
@@ -358,7 +358,7 @@ ls
 
 `experiment.txt` appears only on `experiment`. `git branch` lists local branches; `*` marks the one you are on. `git switch -c NAME` creates a branch and switches to it.
 
-Optional: publish the branch with `git push -u origin experiment`. On GitHub you can open a pull request from `experiment` into `main` (same idea as Part II, but both sides are your repo). This will merge the content of the `experiment` into the `main` branch.
+Optional: publish the branch with `git push -u origin experiment`. On GitHub you can open a pull request from `experiment` into `main` (same idea as Part III, but both sides are your repo). This will merge the content of the `experiment` into the `main` branch.
 
 ## Resources
 
