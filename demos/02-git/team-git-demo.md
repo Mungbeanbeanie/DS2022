@@ -8,7 +8,7 @@ Instructor demo repo: [https://github.com/ksiller/ds2022-team-git-demo](https://
 
 ## Step 1: Repository Setup
 
-- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo) but you can choose your own repo name if you like.
+- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo).**If you follow along, choose your own repo name.
 - The creator adds all group members as collaborators:
   - Go to **Settings** → **Collaborators** (under **Access** in the left sidebar) → **Add people**.
   - Search for each teammate by GitHub username and click **Add [username] to [repository]**. Each invited teammate must accept the invitation (email, GitHub notification, or the banner on the repository page) before they can clone and push.
@@ -22,7 +22,7 @@ Instructor demo repo: [https://github.com/ksiller/ds2022-team-git-demo](https://
 ```bash
 mkdir -p ~/ds2022-fall-26
 cd ~/ds2022-fall-26
-git clone https://github.com/ksiller/ds2022-team-git-demo.git
+git clone https://github.com/<ACCOUNT>/<REPO_NAME>.git # replace with your own account and repo name 
 cd ds2022-team-git-demo
 ls -la
 ```
@@ -32,7 +32,7 @@ ls -la
 ## Step 3: Open the Cloned Repository as a Project in Cursor
 
 - In Cursor, switch to the **IDE Window** if you are not already there (**File → Open IDE**, or confirm the File menu shows **Switch to Agent Windows**).
-- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-team-git-demo`.
+- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-team-git-demo` (or the folder with your repo).
 - Go to **View → Explorer**. This will open the folder/file explorer in the Cursor sidebar.
 
 ## Step 4: Create Unique Files
@@ -69,7 +69,7 @@ hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 ```
 
-Pull from `origin` (the GitHub copy) to integrate their work, then push again:
+Pull from `origin` (i.e. repo content from GitHub) to integrate their work, then push again:
 
 ```bash
 git pull origin main --merge
