@@ -174,11 +174,11 @@ hint: (e.g., 'git pull ...') before pushing again.
 Pull their work into your copy, then push again:
 
 ```bash
-git pull origin main --merge
+git pull origin main --no-rebase
 git push origin main
 ```
 
-(`--merge` tells Git to combine the two versions of the history. Newer versions of Git print a warning if you leave it out.) Because everyone picked a different filename, Git can combine the work on its own, so there is no conflict to resolve.
+(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.) Because everyone picked a different filename, Git can combine the work on its own, so there is no conflict to resolve.
 
 Repeat until everyone has pushed their file.
 
@@ -191,7 +191,7 @@ Everyone: visit the repository page on GitHub and check that all the new files a
 Everyone: run the following command so every local copy has every teammate's unique file:
 
 ```bash
-git pull origin main --merge
+git pull origin main --no-rebase
 ```
 
 **So far, so good. Let's take it to the next level!**
@@ -231,10 +231,10 @@ Starting with the group member next to the first person who successfully pushed,
 1. Pull your teammate's version so Git can try to combine it with yours:
 
 ```bash
-git pull origin main --merge
+git pull origin main --no-rebase
 ```
 
-(`--merge` tells Git to combine the two versions of the history. Newer versions of Git print a warning if you leave it out.)
+(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.)
 
 Git starts the merge and then pauses, because it found a conflict. The merge stays unfinished until you fix the file yourself.
 
