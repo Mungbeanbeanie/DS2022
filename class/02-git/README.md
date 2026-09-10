@@ -110,7 +110,11 @@ We will start with changes that cannot collide (each person adds a file with a d
 
 ### Step 1: Repository Setup
 
-- One person (the "creator") in your group sets up a new repository on GitHub. Initialize the repository with a README so GitHub creates a `main` branch.
+- One person (the "creator") in your group sets up a new repository on GitHub:
+  1. Click **New** (or **+** → **New repository**).
+  2. Choose a repository name.
+  3. Check **Add a README file**. GitHub creates an empty (or nearly empty) `README.md` and the first commit on `main`. Do **not** skip this. An empty GitHub repo with no README leads to "unrelated histories" if people start committing separately.
+  4. Leave the repository **public** and click **Create repository**.
 - The creator adds all group members as collaborators to the new repository on GitHub:
   - Go to **Settings** → **Collaborators** (under **Access** in the left sidebar) → **Add people**.
   - Search for each teammate by GitHub username and click **Add [username] to [repository]**. Each invited teammate must accept the invitation (email, GitHub notification, or the banner on the repository page) before they can clone and push.
@@ -118,7 +122,7 @@ We will start with changes that cannot collide (each person adds a file with a d
 ### Step 2: Clone the Repository
 
 - Open a terminal window.
-- Using the command line, **all** group members clone the new repository onto their own laptop. Make sure you are **not** inside an existing Git repository (you don't want one Git repository inside another).
+- Using the command line, **all** group members clone the new repository onto their own laptop. Make sure you are **not** inside an existing Git repository (you don't want one Git repository inside another). Do **not** run `git init` yourself; clone the repo the creator just made.
 - Change to `~/ds2022-fall-26` first (we created that directory last week; `mkdir -p` is safe to re-run if it is missing):
 
 ```bash
@@ -129,7 +133,7 @@ cd REPO_NAME
 ls -la
 ```
 
-Replace `CREATOR_USERNAME` and `REPO_NAME` with the actual GitHub username and repository name. `ls -la` should show the README plus the hidden `.git` directory.
+Replace `CREATOR_USERNAME` and `REPO_NAME` with the actual GitHub username and repository name. `ls -la` should show `README.md` plus the hidden `.git` directory.
 
 ### Step 3: Open the Cloned Repository as a Project in Cursor
 
@@ -171,14 +175,19 @@ hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 ```
 
-Pull their work into your copy, then push again:
+Pull from `origin` (the copy on GitHub) to bring in their work, then push again:
 
 ```bash
 git pull origin main --no-rebase
-git push origin main
 ```
 
-(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.) Because everyone picked a different filename, Git can combine the work on its own, so there is no conflict to resolve.
+(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.)
+
+Because everyone picked a different filename, Git can combine the work on its own, so there is no conflict to resolve. Your editor may still open with a default merge-commit message; save and close that file to finish the merge. Then push:
+
+```bash
+git push origin main
+```
 
 Repeat until everyone has pushed their file.
 
@@ -268,7 +277,7 @@ git add collision.txt
 5. Complete the merge. Git will open a commit message in the editor (a default merge message is fine). Save and close that file to finish:
 
 ```bash
-git commit
+git commit -m "merged"
 ```
 
 This creates the merge commit.

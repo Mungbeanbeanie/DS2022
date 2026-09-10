@@ -8,7 +8,11 @@ Instructor demo repo: [https://github.com/ksiller/ds2022-team-git-demo](https://
 
 ## Step 1: Repository Setup
 
-- One person (the "creator") sets up a new repository on GitHub. Initialize it with a README so GitHub creates a `main` branch. For this live demo, that repo is [https://github.com/ksiller/ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo). **If you follow along, choose your own repo name.**
+- One person (the "creator") sets up a new repository on GitHub:
+  1. Click **New** (or **+** → **New repository**).
+  2. Choose a repository name. For this live demo the instructor uses [ds2022-team-git-demo](https://github.com/ksiller/ds2022-team-git-demo). **If you follow along, choose your own name.**
+  3. Check **Add a README file**. GitHub creates an empty (or nearly empty) `README.md` and the first commit on `main`. Do **not** skip this. An empty GitHub repo with no README leads to "unrelated histories" if people start committing separately.
+  4. Leave the repository **public** and click **Create repository**.
 - The creator adds all group members as collaborators:
   - Go to **Settings** → **Collaborators** (under **Access** in the left sidebar) → **Add people**.
   - Search for each teammate by GitHub username and click **Add [username] to [repository]**. Each invited teammate must accept the invitation (email, GitHub notification, or the banner on the repository page) before they can clone and push.
@@ -16,23 +20,23 @@ Instructor demo repo: [https://github.com/ksiller/ds2022-team-git-demo](https://
 ## Step 2: Clone the Repository
 
 - Open a terminal window.
-- Using the command line, **all** group members clone the new repository to their own environment. Make sure you are **not** inside an existing Git repository (you don't want nested Git repositories).
+- Using the command line, **all** group members clone the new repository onto their own laptop. Make sure you are **not** inside an existing Git repository (you don't want one Git repository inside another). Do **not** run `git init` yourself; clone the repo the creator just made.
 - Change to `~/ds2022-fall-26` first (we created that directory last week; `mkdir -p` is safe to re-run if it is missing):
 
 ```bash
 mkdir -p ~/ds2022-fall-26
 cd ~/ds2022-fall-26
-git clone https://github.com/<ACCOUNT>/<REPO_NAME>.git # replace with your own account and repo name 
-cd ds2022-team-git-demo
+git clone https://github.com/ACCOUNT/REPO_NAME.git
+cd REPO_NAME
 ls -la
 ```
 
-`ls -la` should show the README plus the hidden `.git` directory.
+Replace `ACCOUNT` and `REPO_NAME` with the creator's GitHub username and repository name. `ls -la` should show `README.md` plus the hidden `.git` directory.
 
 ## Step 3: Open the Cloned Repository as a Project in Cursor
 
 - In Cursor, switch to the **IDE Window** if you are not already there (**File → Open IDE**, or confirm the File menu shows **Switch to Agent Windows**).
-- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `ds2022-team-git-demo` (or the folder with your own repo that was cloned in Step 2).
+- Go to **File → New Window**. Then **File → Open Folder...** and navigate to `ds2022-fall-26` → `REPO_NAME` (the folder created by `git clone` in Step 2).
 - Go to **View → Explorer**. This will open the folder/file explorer in the Cursor sidebar.
 
 ## Step 4: Create Unique Files
@@ -69,14 +73,19 @@ hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 ```
 
-Pull from `origin` (i.e. repo content from GitHub) to integrate their work, then push again:
+Pull from `origin` (the copy on GitHub) to bring in their work, then push again:
 
 ```bash
 git pull origin main --no-rebase
-git push origin main
 ```
 
-(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.) Because the filenames are unique, Git can merge automatically (no conflict to resolve).
+(`--no-rebase` tells Git to combine the two versions of the history with a merge commit, instead of rewriting your commits on top of the remote ones. Newer versions of Git may print a warning if you leave the strategy unspecified.)
+
+Because the filenames are unique, Git can merge automatically (no conflict to resolve). Your editor may still open with a default merge-commit message; save and close that file to finish the merge. Then push:
+
+```bash
+git push origin main
+```
 
 Repeat until everyone has pushed their file.
 
@@ -166,7 +175,7 @@ git add collision.txt
 5. Complete the merge. Git will open a commit message in the editor (a default merge message is fine). Save and close that file to finish:
 
 ```bash
-git commit
+git commit -m "merged"
 ```
 
 This creates the merge commit.
